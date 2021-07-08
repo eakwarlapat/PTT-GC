@@ -1,0 +1,71 @@
+<div bsModal #ViewLogHistoryModal="bs-modal" class="modal fade modal-ViewLog" [config]="{ backdrop: 'static' }">
+  <app-view-log-history (modelClose)="CloseViewLogHistory()" [id]="id"></app-view-log-history>
+</div>
+
+<div bsModal #HistoryStatus="bs-modal" class="modal fade modal-ViewLog" [config]="{ backdrop: 'static' }">
+   <app-history-status (modelClose)="CloseHistoryStatus()" [id]="id" [stage]="history"></app-history-status>
+</div>
+
+<app-initiative-box></app-initiative-box>
+
+<app-form-tabs></app-form-tabs>
+
+<div class="form-group row mt-3">
+  <div class="col-md-12">
+    <h3> Status
+      <button class="btn btn-outline-info float-right" (click)="ShowViewLogHistory()">
+        <i class="fas fa-history mr-2"></i> View Log History
+      </button>
+    </h3>
+    <hr>
+  </div>
+</div>
+
+<ng-template [ngIf]="statusTrackings.length" [ngIfElse]="Nodata">
+  <div class="container my-1">
+    <div class="row">
+      <div class="col-md-12">
+        <table class="table table-bordered mt-3">
+          <thead class="text-center bg-light">
+            <th>State</th>
+            <th>Status</th>
+            <th>Stage</th>
+            <th>Approve by</th>
+            <th>Approve Date</th>
+            <th> <i class="fas fa-cog"></i> </th>
+          </thead>
+          <tbody class="text-center">
+            <tr *ngFor="let item of statusTrackings; let i = index;">
+              <td>
+                <ng-container *ngIf="item.status === 'Complete'">
+                  <i class="fas fa-check"></i>
+                </ng-container>
+                <ng-container *ngIf="item.status === 'In Progress'">
+                  <i class="fas fa-sync-alt"></i>
+                </ng-container>
+              </td>
+              <td> {{ item.status }} </td>
+              <td> {{ item.stage  }} </td>
+              <td> {{ item.approvedBy   }} </td>
+              <td> {{ item.approvedDate | date:'dd/MM/yyyy HH:mm:ss' }} </td>
+              <td>
+                <ng-container *ngIf="CheckStage(item.stage)">
+                  <button class="btn btn-warning text-white" (click)="ShowHistory(item.stage)">
+                    <i class="fas fa-history"></i>
+                  </button>
+                </ng-container>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</ng-template>
+<ng-template #Nodata>
+  <app-initiative-no-data></app-initiative-no-data>
+</ng-template>
+
+<app-initiative-button (SaveDraft)="Draft($event)" (SaveSubmit)="Submit($event)" [Cim]="Cim" [Strategy]="Strategy"
+  [Capex]="Capex" [Max]="Max" [page]="page" [id]="id">
+</app-initiative-button>

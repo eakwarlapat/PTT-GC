@@ -1,0 +1,122 @@
+<app-initiative-box></app-initiative-box>
+
+<app-form-tabs></app-form-tabs>
+
+<app-initiative-header [name]="name"></app-initiative-header>
+
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card text card-initiative">
+
+        <app-initiative-information [id]="id"></app-initiative-information>
+
+        <!-- <div class="row mt-5">
+          <div class=" col-md-12">
+            <h4> Milestones </h4>
+            <hr>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <progressbar class="progress-striped active"  [value]="120" type="primary"><i> 80% </i></progressbar>
+        </div> -->
+
+        <div class="row mt-5">
+          <div class=" col-md-12">
+            <h4> Detail </h4>
+            <hr>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card text card-initiative">
+                <div class="form-initiative">
+                  <div class="form-row align-items-center">
+                    <form [formGroup]="DetailForm">
+                      <table class="table table-bordered">
+                        <thead class="text-center bg-light">
+                          <th width="2%">No.</th>
+                          <th width="14%">Milestone</th>
+                          <th width="18%">Key Deliverable</th>
+                          <th width="15%">Start </th>
+                          <th width="15%">Plan Finish</th>
+                          <th width="15%">Actual Finish</th>
+                          <th width="15%">Activity</th>
+                          <th width="12%">Status</th>
+                          <th width="5%"></th>
+                        </thead>
+                        <tbody *ngFor="let control of DetailForm.get('details')['controls']; let i=index">
+                          <tr [formGroup]="control">
+                            <td class="text-center"> {{i+1}} </td>
+                            <td class="form-group">
+                              <input type="text" class="form-control" [ngClass]="{'is-invalid': InvalidMilestone(i) }" formControlName="milestone">
+                              <div class="invalid-feedback" *ngIf="InvalidMilestone(i)">
+                                Milestone is required
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <textarea rows="1" class="form-control milestone-textarea" autosize formControlName="keyDeliverable"></textarea>
+                            </td>
+                            <td class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="start" [bsConfig]="bsConfig" bsDatepicker>
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="planFinish" [bsConfig]="bsConfig" bsDatepicker (bsValueChange)="ChangePlanDate(i, $event)">
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="actualFinish" [bsConfig]="bsConfig" bsDatepicker (bsValueChange)="ChangeActual(i)">
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <select type="text" class="form-control" formControlName="activity">
+                                <option value="Critical"> Critical </option>
+                                <option value="Non-Critical"> Non-Critical </option>
+                              </select>
+                            </td>
+                            <td class="text-center">
+                              <ng-container *ngIf="planStatus[i]">
+                                <i class="fas fa-circle text-success icon-LI mt-2" *ngIf="planStatus[i] == 'min'"></i>
+                                <i class="fas fa-circle text-danger  icon-LI mt-2" *ngIf="planStatus[i] == 'max'"></i>
+                              </ng-container>
+                            </td>
+                            <td class="text-center">
+                              <button (click)="RemoveDetail(i)" class="btn btn-danger btn-sm" [disabled]="isDisabledProgress">
+                                <i class="fas fa-trash-alt"></i>
+                              </button>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </form>
+                    <button (click)="AddDetail()" class="btn btn-primary mr-5" [disabled]="StageIL5">
+                      <i class="fas fa-plus-square mr-2"></i> Add New
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <br>
+
+      </div>
+    </div>
+  </div>
+
+
+<app-initiative-button
+  (SaveDraft)="Draft($event)"
+  (SaveSubmit)="Submit($event)"
+  [Cim]="Cim"
+  [Strategy]="Strategy"
+  [Capex]="Capex"
+  [Max]="Max"
+  [validate]="invalidSubmit"
+  [page]="page"
+  [id]="id">
+</app-initiative-button>

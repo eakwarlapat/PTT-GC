@@ -1,0 +1,17 @@
+.btn-width {
+  width:150px;
+}
+
+.modal-Attachment {
+  margin-top: 4%;
+}
+
+textarea .comment {
+  border: 1px solid rgb(56, 56, 56);
+}
+
+.disabled-check{
+  cursor: not-allowed!important;
+  pointer-events: none;
+  opacity: 0.50;
+}

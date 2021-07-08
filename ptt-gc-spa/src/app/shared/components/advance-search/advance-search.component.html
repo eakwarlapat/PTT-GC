@@ -1,0 +1,127 @@
+<div class="modal-dialog modal-lg">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h4 id="dialog-child-name" class="modal-title pull-left"> Advance Search </h4>
+      <button type="button" class="close pull-right" aria-label="Close" (click)="HideModal()">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="advancedSearchForm">
+        <div class="form-row">
+          <div class="col form-group">
+            <input type="text" class="form-control" formControlName="id" placeholder="Initiative ID">
+          </div>
+          <div class="col form-group">
+            <input type="text" class="form-control" formControlName="name" placeholder="Initiative Name">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <select type="text" class="form-control" formControlName="type">
+              <option value="" selected>Choose Initiative Type </option>
+              <option value="cim">CIM</option>
+              <option value="pim">PIM</option>
+              <option value="dim">DIM</option>
+              <option value="max">MAX</option>
+              <option value="directCapex">Direct Capex</option>
+              <option value="cpi">CPI</option>
+              <option value="strategy">Strategy</option>
+              <option value="randD">R&D</option>
+              <option value="other">Other</option>
+            </select>
+          </div>
+          <div class="col form-group">
+            <select type="text" class="form-control" formControlName="status">
+              <option value="" selected> Choose Initiative Status </option>
+              <option value="draft">Draft</option>
+              <option value="admin check">Admin check</option>
+              <option value="wait for submission">Wait for submission</option>
+              <option value="revise"> Revise </option>
+              <option value="reject"> Reject </option>
+              <option value="wait for approval">Wait for approval</option>
+              <option value="approved"> Approved  </option>
+              <option value="revised">  Revised   </option>
+              <option value="rejected"> Rejected  </option>
+              <option value="cancelled">Cancelled </option>
+            </select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <ng-select
+            formControlName="ownerName"
+            [items]="owners"
+            bindValue="ownerName"
+            bindLabel="ownerName"
+            placeholder="Choose Owner"
+            (search)="SearchOwnerName($event)"
+            (clear)="ClearOwnerName()">
+          </ng-select>
+          </div>
+
+          <div class="col form-group">
+            <ng-select
+            formControlName="organization"
+            [items]="organizations"
+            bindValue="organizationTitle"
+            bindLabel="organizationTitle"
+            placeholder="Choose Organization"
+            ></ng-select>
+          </div>
+
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <input type="text" class="form-control" formControlName="registerDateSince" [bsConfig]="bsConfig" bsDatepicker #dpRegister="bsDatepicker" placeholder="Register Date [Since]">
+          </div>
+          <div class="col form-group">
+            <input type="text" class="form-control" formControlName="registerDateTo" [bsConfig]="bsConfig" bsDatepicker #dpRegister="bsDatepicker" placeholder="Register Date [To]">
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <ng-select
+            formControlName="plant"
+            [items]="plants"
+            bindValue="plantId"
+            bindLabel="plantTitle"
+            placeholder="Choose Plant"
+            ></ng-select>
+          </div>
+          <div class="col form-group">
+            <ng-select
+            formControlName="typeOfInvestment"
+            [items]="typeOfInvestments"
+            bindValue="typeOfInvestmentId"
+            bindLabel="typeOfInvestmentTitle"
+            placeholder="Choose Type of Investment"
+            ></ng-select>
+          </div>
+        </div>
+        <div class="form-row">
+          <div class="col form-group">
+            <select formControlName="workstream" class="form-control" (change)="OnChangeWorkstream($event)">
+            <option value="" disabled> Choose...</option>
+            <option *ngFor="let workstream of workStreams" value="{{workstream.workStreamTitle}}">
+              {{workstream.workStreamTitle}}
+            </option>
+          </select>
+          </div>
+          <div class="col form-group">
+            <select formControlName="subWorkstream2" class="form-control">
+            <option value="" disabled> Choose...</option>
+            <option *ngFor="let subWorkStream of subWorkstreams" value="{{subWorkStream.subWorkstream2}}">
+              {{subWorkStream.subWorkstream2}}
+            </option>
+          </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer text-center">
+      <button type="button" class="btn btn-outline-primary" (click)="AdvanceSearch()"> Search </button>
+      <button type="button" class="btn btn-outline-dark" (click)="HideModal()">Close</button>
+    </div>
+  </div>
+</div>

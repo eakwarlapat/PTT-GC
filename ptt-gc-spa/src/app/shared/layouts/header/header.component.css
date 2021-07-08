@@ -1,0 +1,40 @@
+a.navbar-brand {
+  white-space: normal;
+  text-align: center;
+  word-break: break-all;
+}
+
+html {
+  font-size: 14px;
+}
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+.box-shadow {
+  box-shadow: 0 .25rem .75rem rgba(0, 0, 0, .10);
+}
+
+.nav-link {
+  display: block;
+  padding: 0rem 1rem !important;
+}
+
+.menu {
+  margin-top: 0px !important;
+}
+
+.dropdown-profile {
+  margin:18px 20px;
+  width: 200px;
+}
+
+.item-profile {
+  cursor:pointer;
+}
+
+.modal-profile {
+  margin-top: 5%;
+}

@@ -1,0 +1,42 @@
+<tabset #informationTabs>
+  <tab heading="General Information" (selectTab)="OnSelect($event)">
+    <app-view-general [id]="id" (CheckSubmit)="CheckSubmit($event)"></app-view-general>
+  </tab>
+
+  <tab heading="Detail Information (CIM & Strategy)" *ngIf="IsCimAndStrategy" (selectTab)="OnSelect($event)">
+    <app-view-cim-strategy [id]="id"></app-view-cim-strategy>
+  </tab>
+
+  <tab heading="{{ DetailName }}" *ngIf="IsMaxAndCapex" (selectTab)="OnSelect($event)">
+    <app-view-max-capex [id]="id" [name]="DetailName" [max]="IsMax" [capex]="IsCapex"></app-view-max-capex>
+  </tab>
+
+  <tab heading="CAPEX Information" *ngIf="IsCheckCapex" (selectTab)="OnSelect($event)">
+    <app-views-capex [id]="id" [capex]="IsCapex"></app-views-capex>
+  </tab>
+
+  <ng-template [ngIf]="ApproveCapex" [ngIfElse]="General">
+    <tab heading="Status" (selectTab)="OnSelect($event)">
+      <app-view-status [id]="id"></app-view-status>
+    </tab>
+  </ng-template>
+
+  <ng-template #General>
+    <ng-container *ngIf="ApproveAdmin">
+      <tab heading="Impact Tracking" (selectTab)="OnSelect($event)">
+        <app-view-impact [id]="id" [stage]="stage"></app-view-impact>
+      </tab>
+      <tab heading="Progress" (selectTab)="OnSelect($event)">
+        <app-view-progress [id]="id"></app-view-progress>
+      </tab>
+      <tab heading="Status" (selectTab)="OnSelect($event)">
+        <app-view-status [id]="id"></app-view-status>
+      </tab>
+    </ng-container>
+  </ng-template>
+
+</tabset>
+
+<app-initiative-file [id]="id"></app-initiative-file>
+
+<app-information-submit></app-information-submit>

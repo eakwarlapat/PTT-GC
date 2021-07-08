@@ -1,0 +1,68 @@
+<div bsModal #AttachmentModal="bs-modal" class="modal fade modal-Attachment" [config]="{ backdrop: 'static'}">
+  <app-initiative-attachment (modelClose)="CloseAttachment()" [id]="id"></app-initiative-attachment>
+</div>
+<hr>
+<div class="container-fluid my-2 mt-3">
+  <ng-template [ngIf]="CheckSubmitTo">
+    <form [formGroup]="submitToForm">
+      <div class="form-group row my-3">
+        <div class="col-md-4">
+          <label for="submitTo"> Submit to </label>
+          <select formControlName="status" class="form-control" (change)="OnChangeStatus()">
+            <option value="forward">   Submitted Forward   </option>
+            <option value="backward" [disabled]="StageIL4">  Submitted Backward  </option>
+            <option value="cancelled"> Submitted Cancelled </option>
+          </select>
+        </div>
+      </div>
+      <ng-container *ngIf="Comment">
+        <div class="form-group row my-3">
+          <div class="col-md-12">
+            <textarea formControlName="commentCancelled" rows="3" class="form-control comment" [ngClass]="{ 'is-invalid': invalidComment }"></textarea>
+            <div class="invalid-feedback" *ngIf="invalidComment">
+              Comment is required !
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </form>
+  </ng-template>
+
+  <br>
+  <div class="row">
+    <div class="col-md-4">
+      <ng-container *ngIf="!SuggestStatus">
+        <button type="button" class="btn btn-success btn-width" (click)="Submit()" [disabled]="StageIL5 || DisabledSubmit">
+          <i class="far fa-check-circle mr-2"></i> Submit
+        </button>
+      </ng-container>
+
+      <ng-container *ngIf="SuggestStatus">
+        <button type="button" class="btn btn-primary btn-width" (click)="Submit()" *ngIf="CheckButton">
+          <i class="far fa-check-circle mr-2"></i> Next
+        </button>
+        <button type="button" class="btn btn-success btn-width" (click)="Submit()" *ngIf="!CheckButton" [disabled]="StageIL5 || DisabledSubmit">
+          <i class="far fa-check-circle mr-2"></i> Submit
+        </button>
+      </ng-container>
+      <button type="button" class="btn btn-white btn-width ml-2" [routerLink]="['/initiative/my-own']">
+        <i class="fas fa-ban mr-2"></i> Cancel
+      </button>
+
+    </div>
+    <div class="col-md-8" style="text-align:right">
+      <button type="button" class="btn btn-white btn-width ml-2" (click)="Draft()" [disabled]="DisabledSubmit">
+        <i class="far fa-save mr-2"></i> Save Draft
+      </button>
+      <button type="button" class="btn btn-white btn-width ml-2">
+        <i class="far fa-copy  mr-2"></i> Duplicate
+      </button>
+      <button type="button" class="btn btn-white btn-width ml-2">
+        <i class="fas fa-print mr-2"></i> Print
+      </button>
+      <button type="button" class="btn btn-white btn-width ml-2" (click)="ShowAttachment()">
+        <i class="fas fa-paperclip mr-2"></i> Attachment
+      </button>
+    </div>
+  </div>
+</div>

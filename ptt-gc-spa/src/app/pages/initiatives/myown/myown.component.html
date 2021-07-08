@@ -1,0 +1,55 @@
+<div class="form-group row mt-3">
+  <div class="col-md-12">
+    <h3> {{ name }} </h3>
+    <hr>
+  </div>
+</div>
+
+<div bsModal #searchModal="bs-modal" class="modal fade modal-search" [config]="{backdrop: 'static'}">
+  <app-advance-search
+  [name]="name"
+  [progress]="params.progress"
+  [complete]="params.complete"
+  [cancel]="params.cancel"
+  (AdvancedSearch)="AdvancedSearch($event)"
+  (modelClose)='HideModal()'>
+  </app-advance-search>
+</div>
+
+<app-initiative-search
+  [name]="name"
+  [advanced]="advanced"
+  (refresh)="Refresh()"
+  (changeStatus)="OnChangeStatus($event)"
+  (changePageLength)="ChangePageLength($event)"
+  (changeSearch)="Search($event)"
+  (modelShow)='ShowModal($event)'>
+</app-initiative-search>
+
+<br>
+
+<ng-template [ngIf]="isLoading" [ngIfElse]="Success">
+  <app-initiative-load></app-initiative-load>
+</ng-template>
+
+<ng-template #Success>
+  <ng-template [ngIf]="initiatives.length" [ngIfElse]="Nodata">
+    <app-initiative-list
+      [name]="name"
+      [IsRefresh]="isRefresh"
+      [text]="params.text"
+      [progress]="params.progress"
+      [complete]="params.complete"
+      [cancel]="params.cancel"
+      [pagination]="pagination"
+      [initiatives]="initiatives"
+      [advanced]="advanced"
+      (OnPageChanged)="PageChanged($event)"
+      (sortByColumn)="SortBy($event)"
+      (deleteInitiative)="DeleteInitiative($event)">
+    </app-initiative-list>
+  </ng-template>
+  <ng-template #Nodata>
+    <app-initiative-no-data></app-initiative-no-data>
+  </ng-template>
+</ng-template>

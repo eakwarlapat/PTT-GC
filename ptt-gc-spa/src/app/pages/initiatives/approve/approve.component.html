@@ -1,0 +1,121 @@
+<ng-container *ngIf="isApprove">
+  <div class="row mt-4">
+    <div class="col-md-12">
+      <h3> Approve </h3>
+    </div>
+  </div>
+  <hr>
+  <ng-template [ngIf]="page === 'overview-approve'">
+    <div class="card mb-3 mt-2">
+      <div class="card-body">
+        <form [formGroup]="approveForm">
+          <div class="form-group">
+            <label for="Approve"> <strong> Approve Name </strong> </label>
+            <select class="form-control mt-2" formControlName="approver">
+              <option *ngFor ="let item of approver" value="{{ item.actionBy }}"> {{ item.actionByName }} </option>
+            </select>
+          </div>
+        </form>
+      </div>
+    </div>
+  </ng-template>
+  <div class="card mb-3 mt-2">
+    <div class="card-body">
+      <form [formGroup]="submitForm" (keydown.enter)="$event.preventDefault()">
+        <div class="form-group row">
+          <label for="Action" class="col-sm-1 col-form-label text-right"> Action </label>
+          <div class="col-sm-11 mt-2">
+            <ng-container *ngIf="!CancelCondition">
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="approve" value="approve" name="status"
+                  formControlName="status" (change)="OnChangeStatus($event)">
+                <label class="custom-control-label" for="approve"> Approve </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="revise" value="revise" name="status"
+                  formControlName="status" (change)="OnChangeStatus($event)">
+                <label class="custom-control-label" for="revise"> Revise </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="reject" value="reject" name="status"
+                  formControlName="status" (change)="OnChangeStatus($event)">
+                <label class="custom-control-label" for="reject"> Reject </label>
+              </div>
+            </ng-container>
+            <ng-container *ngIf="CancelCondition">
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="ApproveCancellation" value="approve cancellation" name="status"
+                  formControlName="status" (change)="OnChangeStatus($event)">
+                <label class="custom-control-label" for="ApproveCancellation"> Approve Cancellation </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="RejectCancellation" value="reject cancellation" name="status"
+                  formControlName="status" (change)="OnChangeStatus($event)">
+                <label class="custom-control-label" for="RejectCancellation"> Reject Cancellation </label>
+              </div>
+            </ng-container>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="Remark" class="col-sm-1 col-form-label text-right"> Remark </label>
+          <div class="col-sm-11">
+            <textarea class="form-control" id="Remark" rows="2" name="remark" formControlName="remark" [ngClass]="{ 'is-invalid': invalidRemark }"> </textarea>
+            <div class="invalid-feedback" *ngIf="invalidRemark">
+              Remark is required !
+            </div>
+          </div>
+        </div>
+
+        <ng-container *ngIf="ShowSecret">
+          <div class="form-group row">
+            <label for="Action" class="col-sm-2 col-form-label text-left"> Secret Project <span class="text-danger ml-2">*</span>  </label>
+            <div class="col-sm-10 mt-2">
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="SecretYes" value="yes" name="secretProject" formControlName="secretProject" (change)="OnChangeSecret($event)" [ngClass]="{ 'is-invalid': invalidSecretProject }">
+                <label class="custom-control-label" for="SecretYes"> Yes </label>
+              </div>
+              <div class="custom-control custom-radio custom-control-inline mr-4">
+                <input class="custom-control-input" type="radio" id="SecretNo" value="no" name="secretProject" formControlName="secretProject" (change)="OnChangeSecret($event)"   [ngClass]="{ 'is-invalid': invalidSecretProject }">
+                <label class="custom-control-label" for="SecretNo"> No </label>
+              </div>
+            </div>
+          </div>
+          <ng-container *ngIf="ShowGoToStage">
+            <div class="form-group row">
+              <label for="Remark" class="col-sm-2 col-form-label text-left"> Go to stage <span class="text-danger ml-3">*</span> </label>
+              <div class="col-sm-10">
+                <select class="form-control" formControlName="goToStage" [ngClass]="{ 'is-invalid': invalidGoToStage }">
+                  <option value="" selected disabled> Choose.. </option>
+                  <option *ngFor="let item of projects" value="{{ item }}">{{ item }}</option>
+                </select>
+                <div class="invalid-feedback" *ngIf="invalidGoToStage">
+                  Go to stage is required !
+                </div>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+
+        <div class="form-group row justify-content-end">
+          <div class="col-sm-11 mt-2">
+            <button class="btn btn-success btn-approve mr-2" (click)="OnSubmit()" [disabled]="DisabledSubmit"> Submit </button>
+            <button class="btn btn-danger  btn-approve mr-2" routerLink="/initiative/my-tasks"> Cancel </button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</ng-container>
+
+<br>
+
+<ng-template [ngIf]="ItDigital" [ngIfElse]="General">
+  <app-dim></app-dim>
+</ng-template>
+
+<ng-template #General>
+  <app-information-tabs [id]="id"></app-information-tabs>
+</ng-template>
+
+

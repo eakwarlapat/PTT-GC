@@ -1,0 +1,936 @@
+<div bsModal #ViewLogHistoryModal="bs-modal" class="modal fade modal-ViewLog" [config]="{ backdrop: 'static' }">
+  <app-view-log-history (modelClose)="CloseViewLogHistory()" [id]="id"></app-view-log-history>
+</div>
+
+<div bsModal #HistoryStatus="bs-modal" class="modal fade modal-ViewLog" [config]="{ backdrop: 'static' }">
+   <app-history-status (modelClose)="CloseHistoryStatus()" [id]="id" [stage]="history"></app-history-status>
+</div>
+
+<div class="form-group row mt-5">
+  <div class="col-md-12">
+    <h3> {{ name }}
+      <ng-container *ngIf="IsApprove">
+        <button class="btn btn-outline-info float-right" (click)="ShowViewLogHistory()">
+          <i class="fas fa-history mr-2"></i> View Log History
+        </button>
+      </ng-container>
+    </h3>
+    <hr>
+  </div>
+</div>
+<div class="row">
+  <div class="col-md-12">
+    <div class="card text card-initiative">
+      <div class="card-body">
+        <div class="form-initiative">
+
+          <app-initiative-information [id]="id"></app-initiative-information>
+
+          <form [formGroup]="DetailMaxForm">
+            <ng-container *ngIf='CheckMax'>
+              <div class="row mt-5">
+                <div class=" col-md-12">
+                  <h4> Initiative Detail </h4>
+                  <hr>
+                </div>
+              </div>
+              <br>
+              <ng-container *ngIf="IsShowFormCondition">
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="initiative year"> Initiative Year </label>
+                    <input formControlName="initiativeYear" class="form-control" readonly>
+                  </div>
+                  <div class="col-md-6">
+                    <label for="strategicObjective"> Strategic Objective </label>
+                    <select formControlName="strategicObjective" class="form-control">
+                      <option value="" selected disabled> Choose... </option>
+                      <option *ngFor="let strategic of strategicObjectives" value="{{ strategic.id }}">
+                        {{strategic.strategicObjectiveTitle}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+
+                <div class="form-group row">
+                  <div class="col-md-6">
+                    <label for="strategy"> Strategy </label>
+                    <select formControlName="strategy" class="form-control">
+                      <option value="" selected disabled>Choose Strategy</option>
+                      <option *ngFor="let strategy of strategies" value="{{strategy.strategyId}}">
+                        {{strategy.strategyTitle}}
+                      </option>
+                    </select>
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="form-group row">
+                <div class="col-md-4">
+                  <label for="type"> Initiative Type </label>
+                  <select formControlName="initiativeTypeMax" class="form-control">
+                    <option value="" disabled> Choose...</option>
+                    <option *ngFor="let type of types" value="{{type.initiativeTypeMaxTitle}}">
+                      {{type.initiativeTypeMaxTitle}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="workStream"> Workstream </label>
+                  <select formControlName="workstream" class="form-control">
+                    <option value="" disabled> Choose...</option>
+                    <option *ngFor="let workstream of workStreams" value="{{workstream.workStreamTitle}}">
+                      {{workstream.workStreamTitle}}
+                    </option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="subWorkStream"> Sub-Workstream </label>
+                  <select formControlName="subWorkstream2" class="form-control">
+                    <option value="" disabled> Choose...</option>
+                    <option *ngFor="let subWorkStream of subWorkstreams" value="{{subWorkStream.subWorkstream2}}">
+                      {{subWorkStream.subWorkstream2}}
+                    </option>
+                  </select>
+                </div>
+              </div>
+
+              <ng-container *ngIf="IsShowProcurement">
+                <div class="row mt-5">
+                  <div class=" col-md-12">
+                    <h4> Procurement </h4>
+                    <hr>
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <label for="proCategory"> Procurement Category </label>
+                    <ng-select
+                      formControlName="proCategory" [items]="procurementCategoryList" bindValue="procurementName"
+                      bindLabel="procurementName" placeholder="Choose Category">
+                    </ng-select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proSubCategory"> Procurement Sub-category </label>
+                    <ng-select
+                      formControlName="proSubCategory" [items]="procurementSubCategoryList" bindValue="procurementName"
+                      bindLabel="procurementName" placeholder="Choose Sub-category">
+                    </ng-select>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="proLever"> Procurement Lever </label>
+                    <ng-select
+                      formControlName="proLever" [items]="procurementLeverList" bindValue="procurementName"
+                      bindLabel="procurementName" placeholder="Choose Lever">
+                    </ng-select>
+                  </div>
+                </div>
+                <br>
+                <br>
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <label for="baseline"> Procurement Baseline </label>
+                    <input type="number" formControlName="baseline" class="form-control" readonly>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="baselineHistorical"> Historical </label>
+                    <input type="number" formControlName="baselineHistorical" class="form-control">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="baselineNonHistorical"> Non Historical </label>
+                    <input type="number" formControlName="baselineNonHistorical" class="form-control">
+                  </div>
+                </div>
+                <div class="form-group row">
+                  <div class="col-md-4">
+                    <label for="saving"> Procurement Saving </label>
+                    <input type="number" formControlName="saving" class="form-control" readonly>
+                  </div>
+                  <div class="col-md-4">
+                    <label for="savingHistorical"> Historical </label>
+                    <input type="number" formControlName="savingHistorical" class="form-control">
+                  </div>
+                  <div class="col-md-4">
+                    <label for="savingNonHistorical"> Non Historical </label>
+                    <input type="number" formControlName="savingNonHistorical" class="form-control">
+                  </div>
+                </div>
+              </ng-container>
+
+              <div class="row mt-5">
+                <div class=" col-md-12">
+                  <h4> Date </h4>
+                  <hr>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-4">
+                  <label for="il3Date"> IL3 Date </label>
+                  <div class="input-group">
+                    <input formControlName="il3Date" type="text" class="form-control">
+                    <div class="input-group-append">
+                      <i class="far fa-calendar right-icon mt-2"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="il4Date"> IL4 Date </label>
+                  <div class="input-group">
+                    <input formControlName="il4Date" type="text" class="form-control">
+                    <div class="input-group-append">
+                      <i class="far fa-calendar right-icon mt-2"></i>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-4">
+                  <label for="il5Date"> IL5 Date </label>
+                  <div class="input-group">
+                    <input formControlName="il5Date" type="text" class="form-control">
+                    <div class="input-group-append">
+                      <i class="far fa-calendar right-icon mt-2"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </ng-container>
+
+            <div class="row mt-5">
+              <div class=" col-md-12">
+                <h4> Approval Detail </h4>
+                <hr>
+              </div>
+            </div>
+            <ng-container *ngIf='CheckMax'>
+              <div class="form-group row">
+                <div class="col-md-4">
+                  <label for="sponsor"> Sponsor </label>
+                  <ng-select
+                    formControlName="sponsorEvp"
+                    [items]="sponsorList"
+                    [multiple]="true"
+                    bindValue="email"
+                    bindLabel="name">
+                  </ng-select>
+                </div>
+                <div class="col-md-4">
+                  <label for="workStreamLead"> Workstream Leader </label>
+                  <select formControlName="workstreamLead" class="form-control">
+                    <option value="" disabled> Choose...</option>
+                    <option *ngFor="let lead of workstreamList" value="{{ lead.email }}">{{ lead.name }}</option>
+                  </select>
+                </div>
+                <div class="col-md-4">
+                  <label for="toFinance"> TO Finance </label>
+                  <ng-select
+                    formControlName="toFinance"
+                    [items]="toFinanceList"
+                    [multiple]="true"
+                    loadingText="Loading"
+                    bindValue="email"
+                    bindLabel="name">
+                  </ng-select>
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-4">
+                  <label for="cfo"> CFO </label>
+                  <ng-select
+                    formControlName="cfo"
+                    [items]="cfoList"
+                    [multiple]="true"
+                    loadingText="Loading"
+                    bindValue="email"
+                    bindLabel="name">
+                  </ng-select>
+                </div>
+                <div class="col-md-4">
+                  <label for="cto"> CTO </label>
+                  <ng-select
+                    formControlName="cto"
+                    [items]="ctoList"
+                    [multiple]="true"
+                    loadingText="Loading"
+                    bindValue="email"
+                    bindLabel="name">
+                  </ng-select>
+                </div>
+              </div>
+            </ng-container>
+
+            <ng-container *ngIf="CheckCapex">
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="cfo"> Vice President of Owner (VP) <span class="text-danger">*</span>  </label>
+                  <input type="text" class="form-control" formControlName="president">
+                </div>
+                <div class="col-md-6">
+                  <label for="cfo"> Division Manager of Owner (DM) <span class="text-danger">*</span>  </label>
+                  <input type="text" class="form-control" formControlName="manager">
+                </div>
+              </div>
+              <div class="form-group row">
+                <div class="col-md-6">
+                  <label for="cfo"> Project Manager <span class="text-danger">*</span>  </label>
+                  <input type="text" class="form-control" formControlName="projectManager">
+                </div>
+              </div>
+            </ng-container>
+
+            <br>
+            <ng-container *ngIf="IsRequestCapex">
+              <hr>
+              <br>
+              <div class="bg-light">
+                <div id="Investment">
+                  <div class="card-header">
+                    <button class="btn btn-link btn-co text-dark" type="button" data-toggle="collapse"
+                      data-target="#collapseInvestment" aria-expanded="true">
+                      <div class="float-left">
+                        Investment Framework
+                      </div>
+                      <i class="fas fa-chevron-circle-down float-right"></i>
+                    </button>
+                  </div>
+                  <div id="collapseInvestment" class="collapse bg-white" aria-labelledby="headingOne"
+                    data-parent="#Investment">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="production"> Production Process of Project , List of
+                            equipment & Leadtime </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="productionProcess" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="production"> Milestone & Schedule </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="milestoneSchedule" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="production"> Expected Target &Result </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="expectedTarget" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="comparison"> Comparison with other alternative</label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="comparisonWithOther" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="production"> Other resources needed to support the project: (Personnel, IT, Others) </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="otherResources" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="other"> Other </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="otherInvestment" rows="2"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="strategic">
+                  <div class="card-header">
+                    <button class="btn btn-link btn-co text-dark" type="button" data-toggle="collapse"
+                      data-target="#collapseStrategic" aria-expanded="true">
+                      <div class="float-left">
+                        Strategic Analysis
+                      </div>
+                      <i class="fas fa-chevron-circle-down float-right"></i>
+                    </button>
+                  </div>
+                  <div id="collapseStrategic" class="collapse bg-white" aria-labelledby="headingOne" data-parent="#strategic">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="consistent"> Consistent with company's strategy </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="consistent" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="keySuccess"> Key Success Factor </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="keySuccessFactor" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="synergyBenefit"> Synergy Benefit</label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="synergyBenefit" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="other"> Other </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="otherStrategic" rows="2"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="business">
+                  <div class="card-header">
+                    <button class="btn btn-link btn-co text-dark" type="button" data-toggle="collapse" data-target="#collapseBusiness" aria-expanded="true">
+                      <div class="float-left">
+                        Business Analysis
+                      </div>
+                      <i class="fas fa-chevron-circle-down float-right"></i>
+                    </button>
+                  </div>
+                  <div id="collapseBusiness" class="collapse bg-white" aria-labelledby="headingOne" data-parent="#business">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="marketOverview"> Market overview</label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="marketOverview" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="potentialCustomer"> Potential Customer</label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="potentialCustomer" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="salesPain"> Sales Plan </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="salesPlan" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="sourceOfFeedback"> Source of Feedback </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="sourceOfFeedback" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="other"> Other </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="otherBusiness" rows="2"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="quality">
+                  <div class="card-header">
+                    <button class="btn btn-link btn-co text-dark" type="button" data-toggle="collapse" data-target="#collapseQuality" aria-expanded="true">
+                      <div class="float-left">
+                        Quality Index
+                      </div>
+                      <i class="fas fa-chevron-circle-down float-right"></i>
+                    </button>
+                  </div>
+                  <div id="collapseQuality" class="collapse bg-white" aria-labelledby="headingOne" data-parent="#quality">
+                    <div class="card-body">
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="safetyIndex"> Safety index</label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="safetyIndex" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="CorporateImageIndex"> Corporate image index</label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="corporateImageIndex" rows="2"></textarea>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-3">
+                          <label for="other"> Other </label>
+                        </div>
+                        <div class="col-md-9">
+                          <textarea class="form-control" formControlName="otherQuality" rows="2"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div id="return">
+                  <div class="card-header">
+                    <button class="btn btn-link btn-co text-dark" type="button" data-toggle="collapse"
+                      data-target="#collapseReturn" aria-expanded="true">
+                      <div class="float-left">
+                        Return of Investment
+                      </div>
+                      <i class="fas fa-chevron-circle-down float-right"></i>
+                    </button>
+                  </div>
+                  <div id="collapseReturn" class="collapse bg-white" aria-labelledby="headingOne" data-parent="#return">
+                    <div class="card-body">
+                      <ng-container *ngIf="IsShowReturn">
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <label for="baseCase"> Base Case (Please specify assumption) <span class='text-danger'>*</span></label>
+                            <textarea class="form-control" formControlName="baseCase" rows="2"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-md-3">
+                            <label for="projectIrrBaseCase"> Project IRR(%)  <span class='text-danger'>*</span></label>
+                            <input class="form-control" type="number" formControlName="projectIrrBaseCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="npvBaseCase"> NPV (M THB)  <span class='text-danger'>*</span></label>
+                            <input class="form-control" type="number" formControlName="npvBaseCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="paybackBaseCase"> Payback(Year)  <span class='text-danger'>*</span></label>
+                            <input class="form-control" type="number" formControlName="paybackBaseCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="ebitdaUpLiftBaseCase"> EBITDA Uplift ( M.THB)  <span class='text-danger'>*</span></label>
+                            <input class="form-control" type="number" formControlName="ebitdaBaseCase">
+                          </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <label for="optimisticCase"> Optimistic Case (Please specify assumption) </label>
+                            <textarea class="form-control" formControlName="optimisticCase" rows="2"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-md-3">
+                            <label for="projectIrrOptimisticCase"> Project IRR(%) </label>
+                            <input class="form-control" type="number" formControlName="projectIrrOptimisticCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="npvOptimisticCase"> NPV (M THB) </label>
+                            <input class="form-control" type="number" formControlName="npvOptimisticCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="paybackOptimisticCase"> Payback(Year) </label>
+                            <input class="form-control" type="number" formControlName="paybackOptimisticCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="ebitdaUpLiftOptimisticCase"> EBITDA Uplift ( M.THB) </label>
+                            <input class="form-control" type="number" formControlName="ebitdaOptimisticCase">
+                          </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                        <div class="form-group row">
+                          <div class="col-md-12">
+                            <label for="pessimisticCase"> Pessimistic Case (Please specify assumption) </label>
+                            <textarea class="form-control" formControlName="pessimisticCase" rows="2"></textarea>
+                          </div>
+                        </div>
+                        <div class="form-group row">
+                          <div class="col-md-3">
+                            <label for="projectIrrPessimisticCase"> Project IRR(%) </label>
+                            <input class="form-control" type="number" formControlName="projectIrrPessimisticCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="npvPessimisticCase"> NPV (M THB) </label>
+                            <input class="form-control" type="number" formControlName="npvPessimisticCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="paybackPessimisticCase"> Payback(Year) </label>
+                            <input class="form-control" type="number" formControlName="paybackPessimisticCase">
+                          </div>
+                          <div class="col-md-3">
+                            <label for="ebitdaUpLiftPessimisticCase"> EBITDA Uplift ( M.THB) </label>
+                            <input class="form-control" type="number" formControlName="ebitdaPessimisticCase">
+                          </div>
+                        </div>
+                        <br>
+                        <hr>
+                        <br>
+                      </ng-container>
+                      
+                      <div class="form-group row">
+                        <div class="col-md-6">
+                          <label for="depreciationCost"> Depreciation Cost <span class='text-danger'>*</span> </label>
+                          <input class="form-control" type="text" formControlName="depreciationCost">
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-md-6">
+                          <label for="usefulLife"> Useful life <span class='text-danger'>*</span> </label>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-2">
+                          <input class="form-control" type="number" formControlName="usefulYear">
+                        </div>
+                        <div class="text-center mt-2"> Year </div>
+
+                        <div class="col-md-2">
+                          <input class="form-control" type="number" formControlName="usefulMonth">
+                        </div>
+                        <div class="text-center mt-2"> Month </div>
+                      </div>
+
+                      <br>
+                      <hr>
+                      <br>
+                      <h5> Additional Key Performance Indicators <span class='text-danger'>*</span> </h5>
+                      <table class="table table-bordered mt-4">
+                        <thead class="text-center bg-light">
+                          <th width="20%"> KPIs </th>
+                          <th width="55%"> Target </th>
+                          <th width="20%"> Frequency </th>
+                        </thead>
+                        <tbody *ngFor="let control of DetailMaxForm.controls.kpisForm.get('kpis')['controls']; let i=index">
+                          <tr [formGroup]="control">
+                            <td>
+                              <select class="form-control" type="text" formControlName="kpis">
+                                <option value="" selected disabled>Choose...</option>
+                                <option *ngFor="let kpis of kpises" value="{{kpis.kpisTitle}}">
+                                  {{kpis.kpisTitle}}
+                                </option>
+                              </select>
+                            </td>
+                            <td>
+                              <input class="form-control" type="text" formControlName="target">
+                            </td>
+                            <td>
+                              <select class="form-control" type="text" formControlName="frequency">
+                                <option value="" selected disabled>Choose...</option>
+                                <option *ngFor="let frequency of frequencies" value="{{frequency.frequencyTitle}}">
+                                  {{frequency.frequencyTitle}}
+                                </option>
+                              </select>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                      <br>
+                      <hr>
+                      <br>
+                      <div class="col-md-12">
+                        <label for="">Remark</label>
+                        <textarea class="form-control" formControlName="remark" rows="5"></textarea>
+                      </div>
+                      <br>
+                      <br>
+                      <div class="col-md-12">
+                        <label for="">Other Remark</label>
+                        <textarea class="form-control" formControlName="otherKpis" rows="5"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div id="additional">
+                  <div class="card-header">
+                    <button class="btn btn-link btn-co text-dark" type="button" data-toggle="collapse"
+                      data-target="#collapseAdditional" aria-expanded="true">
+                      <div class="float-left">
+                        Additional Information
+                      </div>
+                      <i class="fas fa-chevron-circle-down float-right"></i>
+                    </button>
+                  </div>
+                  <div id="collapseAdditional" class="collapse bg-white" aria-labelledby="headingOne" data-parent="#additional">
+                    <div class="card-body">
+                    </div>
+                    <div class="form-group row">
+
+                      <div class="col-md-6">
+                        <label class="my-3" for="requestCapex"> For Environment (EMA) <span class="text-danger">*</span> </label>
+                        <br>
+                        <div class="mt-1">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input id="trueEnvironment" value="true" class="custom-control-input" type="radio" name="forEnvironment"
+                              formControlName="forEnvironment">
+                            <label class="custom-control-label" for="trueEnvironment"> Yes </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline ml-5">
+                            <input id="falseEnvironment" value="false" class="custom-control-input" type="radio" name="forEnvironment"
+                              formControlName="forEnvironment">
+                            <label class="custom-control-label" for="falseEnvironment"> No </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="my-3" for="requestCapex"> For Turnaround Project <span class="text-danger">*</span> </label>
+                        <br>
+                        <div class="mt-1">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input id="trueTurnaround" value="true" class="custom-control-input" type="radio" name="forTurnaround"
+                              formControlName="forTurnaround">
+                            <label class="custom-control-label" for="trueTurnaround"> Yes </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline ml-5">
+                            <input id="falseTurnaround" value="false" class="custom-control-input" type="radio" name="forTurnaround"
+                              formControlName="forTurnaround">
+                            <label class="custom-control-label" for="falseTurnaround"> No </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="IsShowTurnAround">
+                      <div class="form-group row">
+                        <div class="col-md-6">
+                          <label for="cutFeedDate"> Cut Feed Date <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <input formControlName="cutFeedDate" type="text" class="form-control">
+                            <div class="input-group-append">
+                              <i class="far fa-calendar right-icon mt-2"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="cutFeedDate"> Start Up Date <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <input formControlName="startUpDate" type="text" class="form-control">
+                            <div class="input-group-append">
+                              <i class="far fa-calendar right-icon mt-2"></i>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+                       <div class="form-group row">
+                        <div class="col-md-6">
+                          <label for="cycle"> Cycle <span class='text-danger'>*</span> </label>
+                        </div>
+                      </div>
+                      <div class="form-group row">
+                        <div class="col-md-2">
+                          <input class="form-control" type="number" formControlName="cycleYear">
+                        </div>
+                        <div class="text-center mt-2"> Year </div>
+
+                        <div class="col-md-2">
+                          <input class="form-control" type="number" formControlName="cycleMonth">
+                        </div>
+                        <div class="text-center mt-2"> Month </div>
+                      </div>
+
+                    </ng-container>
+
+                    <br>
+                    <hr>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="my-3" for="replaceEquipment"> Replace Equipment <span class="text-danger">*</span> </label>
+                        <br>
+                        <div class="mt-1">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input id="trueEquipment" value="true" class="custom-control-input" type="radio" name="replaceEquipment"
+                              formControlName="replaceEquipment">
+                            <label class="custom-control-label" for="trueEquipment"> Yes </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline ml-5">
+                            <input id="falseEquipment" value="false" class="custom-control-input" type="radio" name="replaceEquipment"
+                              formControlName="replaceEquipment">
+                            <label class="custom-control-label" for="falseEquipment"> No </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="IsShowReplace">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="equipmentName"> Equipment Name </label>
+                          <textarea class="form-control" formControlName="equipmentName" rows="3"></textarea>
+                        </div>
+                      </div>
+
+                      <div class="form-group row">
+                        <div class="col-md-6">
+                          <label for="replacementDate"> Replacement Date <span class="text-danger">*</span></label>
+                          <div class="input-group">
+                            <input formControlName="replacementDate" type="text" class="form-control">
+                            <div class="input-group-append">
+                              <i class="far fa-calendar right-icon mt-2"></i>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="col-md-6">
+                          <label for="oldAssetCondition"> Old Asset Condition <span class="text-danger">*</span></label>
+                          <select formControlName="oldAssetCondition" class="form-control">
+                            <option value="">Choose..</option>
+                            <option value="unable">Unable to Use</option>
+                            <option value="repair">Repair/Collect for space</option>
+                          </select>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="IsShowOldAsset">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="oldAssetNo"> Old Asset No. <span class="text-danger">*</span> </label>
+                          <textarea class="form-control" formControlName="oldAssetNo" rows="3"></textarea>
+                        </div>
+                      </div>
+                    </ng-container>
+
+                    <div class="form-group row mt-5">
+                      <div class="col-md-12">
+                        <label for="equipmentOrAsset"> Equipment or Asset which constructed from project. (Ex. Boiler, CCR Building, etc.) <span class="text-danger">*</span> </label>
+                        <textarea class="form-control" formControlName="equipmentOrAsset" rows="3"></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="my-3" for="replaceEquipment"> BOI <span class="text-danger">*</span> </label>
+                        <br>
+                        <div class="mt-1">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input id="trueBoi" value="true" class="custom-control-input" type="radio" name="boi" formControlName="boi">
+                            <label class="custom-control-label" for="trueBoi"> Yes </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline ml-5">
+                            <input id="falseBoi" value="false" class="custom-control-input" type="radio" name="boi" formControlName="boi">
+                            <label class="custom-control-label" for="falseBoi"> No </label>
+                          </div>
+                        </div>
+                      </div>
+
+                      <ng-container *ngIf="IsShowBOI">
+                        <div class="col-md-6">
+                          <label class="my-3" for="replaceEquipment"> BOI No. </label>
+                          <input type="text" formControlName="boiNo" class="form-control">
+                        </div>
+                      </ng-container>
+                    </div>
+                    <br>
+
+                    <div class="form-group row mb-5">
+                      <div class="col-md-6">
+                        <label class="my-3" for="replaceEquipment"> Do you have Additional Information <span class="text-danger">*</span> </label>
+                        <br>
+                        <div class="mt-1">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input id="trueAdditional" value="true" class="custom-control-input" type="radio" name="haveAdditional"
+                              formControlName="haveAdditional">
+                            <label class="custom-control-label" for="trueAdditional"> Yes </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline ml-5">
+                            <input id="falseAdditional" value="false" class="custom-control-input" type="radio" name="haveAdditional"
+                              formControlName="haveAdditional">
+                            <label class="custom-control-label" for="falseAdditional"> No </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+
+                    <ng-container *ngIf="IsShowAdditional">
+
+                    <span> Additional Information <span class="text-danger">*</span></span>
+
+                    <br>
+                    <br>
+
+                      <div class="form-group row mt-2">
+                        <div class="col-md-12">
+                          <div class="mt-1">
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-3">
+                              <input id="capital" class="custom-control-input" type="checkbox" formControlName="capital">
+                              <label class="custom-control-label" for="capital"> 2 Yr./return Spare part </label>
+                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-2">
+                              <input id="catalyst" class="custom-control-input" type="checkbox" formControlName="catalyst">
+                              <label class="custom-control-label" for="catalyst"> Catalyst </label>
+                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-2">
+                              <input id="software" class="custom-control-input" type="checkbox" formControlName="software">
+                              <label class="custom-control-label" for="software"> Software/License </label>
+                            </div>
+                            <div class="custom-control custom-checkbox custom-control-inline col-md-2">
+                              <input id="rightOfUse" class="custom-control-input" type="checkbox"
+                                formControlName="rightOfUse">
+                              <label class="custom-control-label" for="rightOfUse"> Right of Use </label>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </ng-container>
+                    <br>
+                    <hr>
+
+                    <div class="form-group row">
+                      <div class="col-md-6">
+                        <label class="my-3" for="coordinate"> Coordinate with external parties (Outside Company) <span class="text-danger">*</span> </label>
+                        <br>
+                        <div class="mt-1">
+                          <div class="custom-control custom-radio custom-control-inline">
+                            <input id="trueCoordinate" value="true" class="custom-control-input" type="radio" name="coordinate" formControlName="coordinate">
+                            <label class="custom-control-label" for="trueCoordinate"> Yes </label>
+                          </div>
+                          <div class="custom-control custom-radio custom-control-inline ml-5">
+                            <input id="falseCoordinate" value="false" class="custom-control-input" type="radio" name="coordinate" formControlName="coordinate">
+                            <label class="custom-control-label" for="falseCoordinate"> No </label>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+                    <ng-container *ngIf="IsShowParties">
+                      <div class="form-group row">
+                        <div class="col-md-12">
+                          <label for="parties"> Which parties (Ex. University, PEA , etc.) <span class="text-danger">*</span> </label>
+                          <textarea class="form-control" formControlName="parties" rows="3"></textarea>
+                        </div>
+                      </div>
+                    </ng-container>
+                  </div>
+
+                </div>
+              </div>
+            </ng-container>
+            <br>
+
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

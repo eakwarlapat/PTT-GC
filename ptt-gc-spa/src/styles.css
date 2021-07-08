@@ -1,0 +1,127 @@
+/*PTT COLOR*/
+/* Primary Blue #105BAC */
+/* Soft Blue #00ADEF */
+/* Hard Blue #141466 */
+/* Hard Red #ED1B24 */
+
+@font-face {
+  font-family: 'Open Sans Condensed';
+  /*src: url(/assets/NotoSans-Medium.ttf) format("truetype");*/
+  font-weight: 400;
+}
+
+body {
+  margin: 0;
+  font-family: NotoSans, "NotoSans", sans-serif !important;
+  background-color: #ffffff;
+}
+
+.swal2-title {
+  font-size: 1.4em;
+}
+
+.swal2-content {
+  font-size: 1em;
+}
+
+.bs-datepicker-body table td.week span {
+  color: #105BAC !important;
+}
+
+.bs-datepicker-body table td span.selected,
+.bs-datepicker-head,
+.bs-datepicker-head,
+.bs-datepicker button:active,
+.bs-datepicker-body table td.selected span,
+.bs-datepicker-body table td span[class*="select-"]:after,
+.bs-datepicker-body table td[class*="select-"] span:after,
+.bs-datepicker-body table td.active-week span:hover {
+  background-color: #105BAC !important;
+}
+
+h2, h3, h4 {
+  /* color: #105BAC; */
+  color:#0078b8;
+}
+
+.right-icon {
+  position: relative;
+  z-index: 1;
+  left: -25px;
+  top: 1px;
+  color: #7B7B7B;
+  cursor: pointer;
+  width: 0;
+}
+
+.dropSelect .ng-dropdown-panel {
+  width: auto;
+  position: sticky;
+}
+
+.ng-select.ng-invalid.ng-touched .ng-select-container {
+  border-color: #dc3545;
+  padding-right: calc(1.5em + .75rem);
+}
+
+.text-feedback {
+  width: 100%;
+  margin-top: .25rem;
+  font-size: 80%;
+  color: #dc3545;
+}
+
+/*------------------------------ New UI----------------------------------*/
+
+.form-control {
+  background-color: #f9f9f9;
+  border-radius: 2px;
+}
+
+.row {
+  margin-bottom: 3px;
+}
+
+label {
+  margin-bottom: 3px;
+}
+textarea, .ng-pristine {
+  width: 100%;
+  margin-top: -2px;
+}
+
+/*input[readonly] {
+  background-color: red;
+}*/
+
+.ng-select.ng-select-single .ng-select-container {
+  /*.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input */
+  /*position: absolute;*/
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 2px;
+}
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container {
+  left: 0;
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 2px;
+}
+.ng-select .ng-arrow-wrapper {
+  background-color: #f9f9f9;
+}
+
+.btn-white {
+  background-color: #f9f9f9;
+  border: 1px solid #7B7B7B;
+}
+
+.form-control:disabled, .form-control[readonly] {
+  background-color: #B9B9B9;
+  opacity: 1;
+}
+
+
+
+

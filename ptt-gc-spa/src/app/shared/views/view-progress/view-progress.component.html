@@ -1,0 +1,115 @@
+<div bsModal #ViewLogHistoryModal="bs-modal" class="modal fade modal-ViewLog" [config]="{ backdrop: 'static' }">
+  <app-view-log-history (modelClose)="CloseViewLogHistory()" [id]="id"></app-view-log-history>
+</div>
+
+<div bsModal #HistoryStatus="bs-modal" class="modal fade modal-ViewLog" [config]="{ backdrop: 'static' }">
+   <app-history-status (modelClose)="CloseHistoryStatus()" [id]="id" [stage]="history"></app-history-status>
+</div>
+
+<div class="form-group row mt-5">
+  <div class=" col-md-12">
+    <h3> Initiative Progress & Milestone
+      <ng-container *ngIf="IsApprove">
+        <button class="btn btn-outline-info float-right" (click)="ShowViewLogHistory()">
+          <i class="fas fa-history mr-2"></i> View Log History
+        </button>
+      </ng-container>
+    </h3>
+    <hr>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="card text card-initiative">
+      <div class="card-body">
+        <div class="form-initiative">
+
+        <app-initiative-information [id]="id"></app-initiative-information>
+
+        <!-- <div class="row mt-5">
+          <div class=" col-md-12">
+            <h4> Milestones </h4>
+            <hr>
+          </div>
+        </div>
+
+        <div class="mb-2">
+          <progressbar class="progress-striped active"  [value]="120" type="primary"><i> 80% </i></progressbar>
+        </div> -->
+
+        <div class="row mt-5">
+          <div class=" col-md-12">
+            <h4> Detail </h4>
+            <hr>
+          </div>
+        </div>
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card text card-initiative">
+                <div class="form-initiative">
+                  <div class="form-row align-items-center">
+                    <form [formGroup]="DetailForm">
+                      <table class="table table-bordered">
+                        <thead class="text-center bg-light">
+                          <th width="2%">No.</th>
+                          <th width="14%">Milestone</th>
+                          <th width="18%">Key Deliverable</th>
+                          <th width="15%">Start </th>
+                          <th width="15%">Plan Finish</th>
+                          <th width="15%">Actual Finish</th>
+                          <th width="15%">Activity</th>
+                          <th width="12%">Status</th>
+                        </thead>
+                        <tbody *ngFor="let control of DetailForm.get('details')['controls']; let i=index">
+                          <tr [formGroup]="control">
+                            <td class="text-center"> {{i+1}} </td>
+                            <td class="form-group">
+                              <input type="text" class="form-control" formControlName="milestone">
+                            </td>
+                            <td class="form-group">
+                              <textarea rows="1" class="form-control milestone-textarea" autosize formControlName="keyDeliverable"></textarea>
+                            </td>
+                            <td class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="start">
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="planFinish">
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <div class="input-group">
+                                <input type="text" class="form-control" formControlName="actualFinish">
+                              </div>
+                            </td>
+                            <td class="form-group">
+                              <select type="text" class="form-control" formControlName="activity">
+                                <option value="Critical"> Critical </option>
+                                <option value="Non-Critical"> Non-Critical </option>
+                              </select>
+                            </td>
+                            <td class="text-center">
+                              <ng-container >
+                                <i class="fas fa-circle text-success icon-LI mt-2" *ngIf="planStatus[i] == 'min'"></i>
+                                <i class="fas fa-circle text-danger  icon-LI mt-2" *ngIf="planStatus[i] == 'max'"></i>
+                              </ng-container>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </form>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+/* .freeze-table-header          { overflow-y: auto; height: 100px; }
+.freeze-table-header thead th { position: sticky; top: 0; } */
+
+/* Just common table stuff. Really. */
+/* table  { border-collapse: collapse; width: 100%; }
+th, td { padding: 8px 16px; }
+th     { background:#eee; } */
+
+
+/* Borders (if you need them) */
+/* .freeze-table-header,
+.freeze-table-header td {
+  box-shadow: inset 1px -1px #000;
+}
+.freeze-table-header th {
+  box-shadow: inset 1px 1px #000, 0 1px #000;
+} */
+th {
+  white-space: nowrap;
+  background-color: #105bab;  
+}
+
+.table thead th {
+  vertical-align: middle;
+}

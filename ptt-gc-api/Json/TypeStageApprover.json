@@ -1,0 +1,110 @@
+[
+  {
+    "Type": "max",
+    "Stage": "SIL1",
+    "Approver": "tinnakornchoompee@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL2",
+    "Approver": "tinnakornchoompee@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL3",
+    "Approver": "tinnakornchoompee@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL4",
+    "Approver": "tinnakornchoompee@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL5",
+    "Approver": "tinnakornchoompee@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "max",
+    "Stage": "waiting",
+    "Approver": "tinnakornchoompee@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL1",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "2"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL2",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "2"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL3",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "2"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL4",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "2"
+  },
+  {
+    "Type": "max",
+    "Stage": "SIL5",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "2"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "EVP/MD/SEVP/COE/PSD/CEO",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "Budget Team",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "BOD",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "App. Request",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "WBS Request",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "DM",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  },
+  {
+    "Type": "directCapex",
+    "Stage": "VP",
+    "Approver": "eakwarlapat.adev@gmail.com",
+    "Order": "1"
+  }
+]

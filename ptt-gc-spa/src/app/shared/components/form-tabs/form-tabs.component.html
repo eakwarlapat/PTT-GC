@@ -1,0 +1,46 @@
+<ul class="nav nav-tabs">
+  <li class="nav-item" *ngIf="CheckCreate">
+    <a class="nav-link" routerLink="/initiative/create" routerLinkActive="active"> General Information </a>
+  </li>
+  <li class="nav-item" *ngIf="CheckEdit">
+    <a class="nav-link" routerLink="/initiative/edit" routerLinkActive="active"
+      [ngClass]="{'nav-required': isRequired.general }"> General Information </a>
+  </li>
+  <li class="nav-item" *ngIf="CheckDetailCIMStrategy">
+    <a class="nav-link" routerLink="/initiative/detail" routerLinkActive="active"
+      [ngClass]="{'nav-required': isRequired.detail, 'disabled': isDisabled }"> Detail Information (CIM & Strategy) </a>
+  </li>
+  <li class="nav-item" *ngIf="CheckDetailMax">
+    <a class="nav-link" routerLink="/initiative/detail-max" routerLinkActive="active"
+      [ngClass]="{'nav-required': isRequired.max, 'disabled': isDisabled }"> Detail Information (Max) </a>
+  </li>
+  <li class="nav-item" *ngIf="CheckCapex">
+    <a class="nav-link" routerLink="/initiative/direct" routerLinkActive="active"
+      [ngClass]="{'nav-required': isRequired.capex, 'disabled': isDisabled }"> Detail Information (Direct CAPEX) </a>
+  </li>
+  <li class="nav-item" *ngIf="CheckCapex">
+    <a class="nav-link" routerLink="/initiative/capex/{{id}}" routerLinkActive="active"
+      [ngClass]="{'nav-required': isRequired.capex, 'disabled': isDisabled }"> CAPEX Information </a>
+  </li>
+
+  <ng-template [ngIf]="ApproveCapex" [ngIfElse]="General">
+    <li class="nav-item">
+      <a class="nav-link" routerLink="/initiative/status" routerLinkActive="active"> Status </a>
+    </li>
+  </ng-template>
+
+  <ng-template #General>
+    <ng-container *ngIf="ApproveAdmin">
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/initiative/impact" routerLinkActive="active" [ngClass]="{'nav-required': isRequired.impact }"> Impact Tracking </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/initiative/progress" routerLinkActive="active" [ngClass]="{'nav-required': isRequired.progress }"> Progress </a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" routerLink="/initiative/status" routerLinkActive="active"> Status </a>
+      </li>
+    </ng-container>
+  </ng-template>
+</ul>
+<br>

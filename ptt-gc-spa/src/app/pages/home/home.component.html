@@ -1,0 +1,64 @@
+<ng-template [ngIf]="isLoading" [ngIfElse]="Success">
+<!-- <div class="container text-center loader-layout">
+  <ngx-spinner bdColor="#fffffff" color= "#105bac" size="medium" type="ball-spin" [fullScreen]="false"></ngx-spinner>
+</div>
+<br> -->
+</ng-template>
+
+<ng-template #Success>
+  <div class="container-fluid"  data-aos="fade-up">
+    <br />
+    <div class="row">
+      <div class="col-md-3" style="text-align:right">
+        <img src="assets/images/idea-many.png" alt="" style="width:300px">
+      </div>
+      <div class="col-md-4">
+        <div class="card border-primary mb-3">
+          <div class="card-header">MY TASKS</div>
+          <div class="card-body text-primary">
+            <h5 class="card-title" style="color:#0276D0"><i class="fa fa-spinner" aria-hidden="true"></i> {{ MyTaskInProgress }} In Progress</h5>
+            <h5 class="card-title" style="color:#DA1ADA"><i class="fa fa-hourglass-start" aria-hidden="true">&nbsp;</i> {{ MyTaskNotStarted }} Not Started</h5>
+          </div>
+        </div>
+        <div class="card border-primary mb-3">
+          <div class="card-header">MY INITIATIVES</div>
+          <div class="card-body text-primary">
+            <h5 class="card-title" style="color:#FFA500"><i class="far fa-save mr-2" aria-hidden="true">&nbsp;</i>{{ MyInitiativeDraft }} Drafts</h5>
+            <h5 class="card-title" style="color:#0276D0"><i class="fa fa-spinner" aria-hidden="true">&nbsp;</i> {{ MyInitiativeInProgress }} In Progress</h5>
+            <h5 class="card-title" style="color:#008000"><i class="fa fa-check" aria-hidden="true">&nbsp;</i> {{ MyInitiativeCompleted }} Completed</h5>
+            <h5 class="card-title" style="color:#4D4D4D"><i class="fa fa-times" aria-hidden="true">&nbsp;&nbsp;</i> {{ MyInitiativeCanceled }} Canceled</h5>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-4">
+        <div class="card border-primary mb-3">
+          <div class="card-header">CREATE</div>
+          <div class="card-body text-primary">
+            <div class="card" style="margin-bottom:10px">
+              <div class="card-body text-primary">
+                <a [routerLink]="['/initiative/create']">
+                  <i class="fa fa-plus" aria-hidden="true"></i> New Initiative
+                </a>
+
+              </div>
+            </div>
+            <div class="card text-primary" style=" margin-bottom: 10px">
+              <div class="card-body text-primary disabled-check">
+                <i class="fa fa-plus" aria-hidden="true"></i> New IT or Digital Budget Survey
+              </div>
+            </div>
+            <div class="card text-primary" style="margin-bottom:10px">
+              <div class="card-body text-primary disabled-check">
+                <i class="fa fa-plus" aria-hidden="true"></i>  New Request Pool
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--<h2 class="mt-5"> PTT Global Chemical Public Company Limited. </h2>-->
+  <br>
+</ng-template>
+
+
